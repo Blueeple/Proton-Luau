@@ -6,6 +6,8 @@
 
 -- Modules
 local EZSignal = require("../dependencies/EZSignal")
+local EZFastLex = require("./EZFastLex")
+
 
 -- Functions
 --[=[
@@ -20,6 +22,7 @@ local ReadLine = function(line: string)
 			table.insert(chars, line:sub(cursor, cursor))
 			cursor += 1
 		end
+		EZFastLex.Lex(chars)
 	end
 	decomp()
 	EZSignal.Fire("ProtonLuau-Parser", chars)
@@ -34,7 +37,7 @@ local Lexer = {}
 ]=]
 Lexer.ReadCode = function(code: string)
 	local lines = {} :: { [number]: string }
-	EZSignal.Fire("ProtonLuau", "!codeStart")
+	EZSignal.Fire("ProtonLuau", 2, "!codeStart")
 
 	for _, line in code:split("\n") do
 		ReadLine(line)

@@ -1,7 +1,8 @@
 {
   "aliases": {
     "game": "./src",
-    "self": "./"
+    "self": "./",
+    "lune": "~/.lune/.typedefs/0.10.5/"
   },
   "languageMode": "strict"
 }

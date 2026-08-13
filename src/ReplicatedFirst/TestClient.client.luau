@@ -10,6 +10,7 @@ local _Bin = ReplicatedFirst:WaitForChild("Bin")
 local Transulator = require(ReplicatedStorage:WaitForChild("VezScript").Engine)
 
 -- CodeToTest
-local Test = require("@game/ReplicatedFirst/Bin/TestCode")
+local _Test = require("@game/ReplicatedFirst/Bin/TestCode")
+local exampleLine = { "int x = 5;" }
 
-Transulator.CompileToLuau(Test)
+Transulator.CompileToLuau(exampleLine)
