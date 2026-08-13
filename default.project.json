@@ -1,0 +1,32 @@
+{
+  "name": "ProtonLuau",
+  "tree": {
+    "$className": "DataModel",
+
+    "ReplicatedFirst": {
+      "$path": "src/ReplicatedFirst"
+
+    },
+
+    "ReplicatedStorage": {
+      "$path": "src/ReplicatedStorage",
+      "Packages": {
+        "$className": "Folder",
+        "$path": "Packages"
+      }
+    },
+
+    "ServerScriptService": {
+      "$path": "src/ServerScriptService"
+    },
+
+    "StarterPlayer": {
+      "StarterCharacterScripts": {
+        "$path": "src/CharacterScripts"
+      },
+      "StarterPlayerScripts": {
+        "$path": "src/PlayerScripts"
+      }
+    }
+  }
+}

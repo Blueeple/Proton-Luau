@@ -1,0 +1,7 @@
+{
+  "aliases": {
+    "game": "./src",
+    "self": "./"
+  },
+  "languageMode": "strict"
+}
