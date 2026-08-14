@@ -1,8 +1,11 @@
 {
-  "aliases": {
-    "game": "./src",
-    "self": "./",
-    "lune": "~/.lune/.typedefs/0.10.5/"
-  },
-  "languageMode": "strict"
+    "languageMode": "strict",
+    "aliases": {
+        "transform": "@std/commands/transform/types",
+        "lune": "~/.lune/.typedefs/0.10.5/",
+        "lint": "@std/commands/lint/types",
+        "lute": "~/.lute/typedefs/1.0.1/lute",
+        "game": "./src",
+        "std": "~/.lute/typedefs/1.0.1/std"
+    }
 }

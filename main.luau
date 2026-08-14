@@ -1,6 +1,6 @@
-local VezScript = require("./src/ReplicatedStorage/VezScript/Engine")
+local Proton_Luau = require("./src/ReplicatedStorage/Proton-Luau/Engine")
 local _CodeToTest = require("./src/ReplicatedFirst/Bin/TestCode")
 
 local exampleLine = { "int x = 5;" }
 
-VezScript.CompileToLuau(exampleLine)
+Proton_Luau.CompileToLuau(exampleLine)
