@@ -1,28 +1,11 @@
 --!strict
 --!native
+-- Modules
+local LRT_Detector = require("../dependencies/LRT-Detector")
 
 -- Roblox Luau Natives
 local logWarn: (...any) -> ()
 local _LuauScript: { Name: string }
-
--- Variables
-local isRoblox = false
-local isLune = false
-local isLute = false
-
-isRoblox = pcall(function(...)
-	return game:GetService("Workspace")
-end)
-
-isLune = pcall(function(...)
-	local lune = "@lune/task"
-	return require(lune) :: { any }
-end)
-
-isLute = pcall(function(...)
-	local lute = "@lute/fs"
-	return require(lute) :: { any }
-end)
 
 -- Funtions
 --[[
@@ -85,36 +68,22 @@ end
     Returns "FileNameNotImplemented" if not available.
 ]]
 local function GetScriptFileName()
+    local pluau_runtime = LRT_Detector.getRuntime()
 	local fileName, lineNumber = debug.info(3, "sl")
 
-	if isRoblox then
+	if pluau_runtime == "rblx" then
 		return `{fileName:match("([^.]+)$")} | {lineNumber}`
-	elseif isLune then
+	elseif pluau_runtime == "lune" then
 		return `{fileName:match("([^\\]+)$")} | {lineNumber}`
 	else
-		return `{fileName:match("([^/]+)$")} | {lineNumber}`
+		return `{fileName:match("([^/]+)$")} | {lineNumber}` -- Lute  or other Unknown Luau RunTimes
 	end
 end
 
 local containers = {} :: { [string]: {} }
 local Debugger = {}
 
--- Detect Lune/Lute runtime when both are available.
-if isLune and isLute then
-	print("[!][Debugger] - Detected Lune and Lute runtimes, Detecting which is in use.")
-	local isRunningLune = pcall(function(...)
-		return getfenv().warn -- Only Lune / Roblox runtime has a warn global function
-	end)
-	if not isRunningLune then
-		isLune = false
-		print("[!][Debugger] - Lute Runtime detected.")
-	else
-		isLute = false
-		print("[!][Debugger] - Lune Runtime detected.")
-	end
-end
-
-if not isLute then
+if LRT_Detector.getRuntime() == "lune" or LRT_Detector.getRuntime() == "rblx"  then
 	logWarn = getfenv().warn
 	_LuauScript = getfenv().script
 end
@@ -127,36 +96,13 @@ Debugger.new = function(name: string)
 	containers[name] = {}
 end
 
-Debugger.IsRoblox = function()
-	return isRoblox
-end
-
-Debugger.IsLune = function()
-	return isLune
-end
-
-Debugger.IsLute = function()
-	return isLute
-end
-
-Debugger.getPlatform = function()
-	if isRoblox then
-		return "Roblox"
-	elseif isLune then
-		return "Lune"
-	elseif isLute then
-		return "Lute"
-	end
-	return "Luau"
-end
-
 Debugger.Warn = function(...)
 	local FileName = GetScriptFileName()
-	if isRoblox then
+	if LRT_Detector.getRuntime() == "rblx" then
 		logWarn(...)
 	end
 	-- Detects if the message has a Table to prettify in Luau
-	if not isLune and not isRoblox then
+	if LRT_Detector.getRuntime() == "lute" or LRT_Detector.getRuntime() == "luau" then
 		FormatTextForLuauCLI(`[!][{FileName}] -`, ...)
 		return
 	end
@@ -167,7 +113,7 @@ Debugger.Out = function(...)
 	local FileName = GetScriptFileName()
 
 	-- Detects if the message has a Table to prettify in Luau
-	if not isLune and not isRoblox then
+	if LRT_Detector.getRuntime() == "lute" or LRT_Detector.getRuntime() == "luau" then
 		FormatTextForLuauCLI(`[{FileName}] -`, ...)
 		return
 	end

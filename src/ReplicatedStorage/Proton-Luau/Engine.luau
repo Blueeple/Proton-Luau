@@ -1,29 +1,20 @@
 --[=[
     Scripted by @Blueeple on @Github
 ]=]
-print("[ProtonLuau][Emulator] - Started")
+print("[ProtonLuau] - Started")
 
 -- Modules
-local EZSignal = require("../VezScript/dependencies/EZSignal")
-local parser = require("../VezScript/core/parser")
-local lexer = require("../VezScript/core/lexer")
-local Debugger = require("../VezScript/core/Debugger")
-
--- Roblox Detection
-local isRoblox = Debugger.IsRoblox()
-local isLune = Debugger.IsLune()
-
-if isRoblox then
-	print("[Debugger] - Running in Roblox | Applying Roblox Natives")
-elseif isLune then
-	print("[Debugger] - Running in Lune | Applying Lune Natives")
-else
-	print("[Debugger] - Running in Luau CLI | Or unknown Runtime")
-	
-end
+local LRT_Detector = require("../Proton-Luau/dependencies/LRT-Detector")
+local EZSignal = require("../Proton-Luau/dependencies/EZSignal")
+local parser = require("../Proton-Luau/core/parser")
+local lexer = require("../Proton-Luau/core/lexer")
+local Debugger = require("../Proton-Luau/core/Debugger")
 
 -- Variables
+local runtime = LRT_Detector.getRuntime()
 local currentFile = {} :: typeof(parser.newFile())
+
+print(`[Proton-Luau] - {runtime} | Applying Natives`)
 
 -- Module
 local LuauProtonEngine = {}

@@ -1,5 +1,6 @@
+
+--[[
 --!strict
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
 -- optimize 2
 
 -- basically a container for code / variable the cpp compiler is tryna take or use
@@ -15,7 +16,6 @@ export type ProtonLuauSandbox = {
 }
 
 -- Modules
-local compilerConfigs = require(ReplicatedStorage.VezScript.config.compilerConfigs)
 local EZSignal = require("../dependencies/EZSignal")
 local SandboxTemplate = require("../templates/SandboxTemplate")
 local astDefinitions = require("../langInfo/astDefinitions") :: { [string]: any }
@@ -100,3 +100,4 @@ local sandbox = {}
 sandbox.new = sFunc_.new
 
 return sandbox
+]]
