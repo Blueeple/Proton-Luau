@@ -19,6 +19,7 @@ elseif isLune then
 	print("[Debugger] - Running in Lune | Applying Lune Natives")
 else
 	print("[Debugger] - Running in Luau CLI | Or unknown Runtime")
+	
 end
 
 -- Variables
