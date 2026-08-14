@@ -4,6 +4,10 @@
 -- Modules
 local Debugger = require("./Debugger")
 
+local waitHandlers = {
+    Roblox = task.wait,
+    Lune = task.wait,
+}
 -- Module
 local TaskLibrary = {}
 
