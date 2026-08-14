@@ -139,6 +139,17 @@ Debugger.IsLute = function()
 	return isLute
 end
 
+Debugger.getPlatform = function()
+	if isRoblox then
+		return "Roblox"
+	elseif isLune then
+		return "Lune"
+	elseif isLute then
+		return "Lute"
+	end
+	return "Luau"
+end
+
 Debugger.Warn = function(...)
 	local FileName = GetScriptFileName()
 	if isRoblox then
